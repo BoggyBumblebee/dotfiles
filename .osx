@@ -32,6 +32,9 @@ else
   while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 fi
 
+# Close open System Preferences panes, to prevent them from overriding settings. [CMB]
+osascript -e 'tell application "System Preferences" to quit'
+
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
@@ -60,7 +63,7 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
 # Set background to dark-grey color[CMB - Updated, but will need to be set to London Evening once setup is complete]
-osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/System/Library/Desktop Pictures/Pro Black.heic"'
+osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/System/Library/Desktop Pictures/Hello Metallic Blue.heic"'
 
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
@@ -107,10 +110,11 @@ defaults write com.apple.screencapture disable-shadow -bool true
 # Finder                                                                      #
 ###############################################################################
 
-# Set ~ as the default location for new Finder windows [CMB - updated from ~/Desktop to ~]
+# Set ~ as the default location for new Finder windows [CMB - updated from PfDe to PfHm]
+# So Home is PfHm, Desktop is PfDe, PfLo is to open to a custom location, and you need to have the top line that directs NewWindowTarget to PfLo
 # For other paths, use `PfLo` and `file:///full/path/here/`
-defaults write com.apple.finder NewWindowTarget -string "PfDe"
-defaults write com.apple.finder NewWindowTargetPath -string "~/"
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
+# defaults write com.apple.finder NewWindowTargetPath -string "/Users/cmb/"
 
 # Show icons for hard drives, servers, and removable media on the desktop [CMB]
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
@@ -254,8 +258,7 @@ defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 ###############################################################################
 
 if [[ "$RUN_AS_ROOT" = true ]]; then
-  # Disable Spotlight indexing for any volume that gets mounted and has not yet
-  # been indexed before. [CMB]
+  # Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before. [CMB]
   # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
   sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
 
