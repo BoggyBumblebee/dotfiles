@@ -65,6 +65,9 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 # Set background to dark-grey color[CMB - Updated, but will need to be set to London Evening once setup is complete]
 osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/System/Library/Desktop Pictures/Hello Metallic Blue.heic"'
 
+# Use F1, F2, etc. as standard function keys [CMB]
+defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
+
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
@@ -110,17 +113,20 @@ defaults write com.apple.screencapture disable-shadow -bool true
 # Finder                                                                      #
 ###############################################################################
 
-# Set ~ as the default location for new Finder windows [CMB - updated from PfDe to PfHm]
+# Finder: set ~ as the default location for new Finder windows [CMB - updated from PfDe to PfHm]
 # So Home is PfHm, Desktop is PfDe, PfLo is to open to a custom location, and you need to have the top line that directs NewWindowTarget to PfLo
 # For other paths, use `PfLo` and `file:///full/path/here/`
 defaults write com.apple.finder NewWindowTarget -string "PfHm"
 # defaults write com.apple.finder NewWindowTargetPath -string "/Users/cmb/"
 
-# Show icons for hard drives, servers, and removable media on the desktop [CMB]
+# Finder: show icons for hard drives, servers, and removable media on the desktop [CMB]
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
 defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+
+# Finder: set sidebar icon size to small [CMB]
+defaults write NSGlobalDomain "NSTableViewDefaultSizeMode" -int 1
 
 # Finder: show hidden files by default [CMB]
 # defaults write com.apple.finder AppleShowAllFiles -bool true
@@ -146,22 +152,22 @@ defaults write com.apple.finder ShowPathbar -bool true
 # Finder: allow text selection in Quick Look [CMB]
 defaults write com.apple.finder QLEnableTextSelection -bool true
 
-# Display full POSIX path as Finder window title
+# Finder: display full POSIX path as Finder window title [CMB]
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
-# When performing a search, search the This Mac by default [CMB - updated from Current Folder to This Mac]
+# Finer: when performing a search, search the This Mac by default [CMB - updated from Current Folder to This Mac]
 # defaults write com.apple.finder FXDefaultSearchScope -string "SCev"
 
-# Disable the warning when changing a file extension [CMB]
+# Finder: disable the warning when changing a file extension [CMB]
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-# Enable spring loading for directories [CMB]
+# Finder: enable spring loading for directories [CMB]
 defaults write NSGlobalDomain com.apple.springing.enabled -bool true
 
-# Remove the spring loading delay for directories [CMB]
+# Finder: remove the spring loading delay for directories [CMB]
 defaults write NSGlobalDomain com.apple.springing.delay -float 0.1
 
-# Avoid creating .DS_Store files on network volumes [CMB]
+# Finder: avoid creating .DS_Store files on network volumes [CMB]
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
 # Enable arrange by name for icons on the desktop and in other icon views [CMB - Updated from grid to name]
@@ -174,18 +180,21 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 48" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 48" ~/Library/Preferences/com.apple.finder.plist
 
-# Use column view in all Finder windows by default [CMB - updated from clmv to Nlsv]
+# Finder: use column view in all Finder windows by default [CMB - updated from clmv to Nlsv]
 # Four-letter codes for the other view modes: `icnv`, `Nlsv`, `clmv`, `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
-# Show the ~/Library folder [CMB]
+# Finder: show the ~/Library folder [CMB]
 chflags nohidden ~/Library
+
+# Finder: empty bin items after 30 days [CMB]
+defaults write com.apple.finder "FXRemoveOldTrashItems" -bool true
 
 ###############################################################################
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
 
-# Set the auto-hide of the Dock 
+# Set the auto-hide of the Dock [CMB]
 defaults write com.apple.dock autohide -bool true  
 
 # Prevent recent applications shwoign in the Dock [CMB]
