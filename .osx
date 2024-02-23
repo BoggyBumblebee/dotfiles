@@ -169,14 +169,14 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy name" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy name" ~/Library/Preferences/com.apple.finder.plist
 
-# Set the size of icons on the desktop and in other icon views [CMB]
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 64" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 64" ~/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 64" ~/Library/Preferences/com.apple.finder.plist
+# Set the size of icons on the desktop and in other icon views [CMB - updated from 64 to 48]
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 48" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 48" ~/Library/Preferences/com.apple.finder.plist
+/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 48" ~/Library/Preferences/com.apple.finder.plist
 
-# Use column view in all Finder windows by default [CMB]
+# Use column view in all Finder windows by default [CMB - updated from clmv to Nlsv]
 # Four-letter codes for the other view modes: `icnv`, `Nlsv`, `clmv`, `Flwv`
-defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
 # Show the ~/Library folder [CMB]
 chflags nohidden ~/Library
@@ -187,6 +187,9 @@ chflags nohidden ~/Library
 
 # Set the auto-hide of the Dock 
 defaults write com.apple.dock autohide -bool true  
+
+# Prevent recent applications shwoign in the Dock [CMB]
+defaults write com.apple.dock show-recents -bool false
 
 # Set the icon size of Dock items [CMB - Updated from 30 to 32]
 defaults write com.apple.dock tilesize -int 32
