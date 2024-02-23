@@ -124,8 +124,20 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 # Finder: show all filename extensions [CMB]
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
+# Finder: hide tags in sidebar [CMB]
+defaults write com.apple.finder ShowRecentTags -bool false                   # Hide tags in sidebar.
+
+# Finder: Alow quitting finder via ⌘ + Q [CMB]
+defaults write com.apple.finder QuitMenuItem -bool true                      # Allow quitting finder via ⌘ + Q.
+
+# Finder: Alow greater sidebar width [CMB]
+defaults write com.apple.finder SidebarWidth -int 175                        # Greater sidebar width.
+
 # Finder: show status bar [CMB]
 defaults write com.apple.finder ShowStatusBar -bool true
+
+# Finder: show path bar [CMB]
+defaults write com.apple.finder ShowPathbar -bool true
 
 # Finder: allow text selection in Quick Look [CMB]
 defaults write com.apple.finder QLEnableTextSelection -bool true
@@ -133,8 +145,8 @@ defaults write com.apple.finder QLEnableTextSelection -bool true
 # Display full POSIX path as Finder window title
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 
-# When performing a search, search the current folder by default [CMB?]
-defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+# When performing a search, search the This Mac by default [CMB - updated from Current Folder to This Mac]
+# defaults write com.apple.finder FXDefaultSearchScope -string "SCev"
 
 # Disable the warning when changing a file extension [CMB]
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
@@ -169,11 +181,15 @@ chflags nohidden ~/Library
 # Dock, Dashboard, and hot corners                                            #
 ###############################################################################
 
+# Set the auto-hide of the Dock 
+defaults write com.apple.dock autohide -bool true  
+
 # Set the icon size of Dock items [CMB - Updated from 30 to 64]
-defaults write com.apple.dock tilesize -int 64
+defaults write com.apple.dock tilesize -int 48
 
 # Set the large icon size (expansion) of Dock Items [CMB]
-defaults write com.apple.dock largesize -int 128
+defaults write com.apple.dock magnification -boolean true
+defaults write com.apple.dock largesize -int 98
 
 # Speed up Mission Control animations [CMB]
 defaults write com.apple.dock expose-animation-duration -float 0.15
@@ -214,6 +230,7 @@ defaults write com.apple.dock wvous-bl-modifier -int 0
 ###############################################################################
 
 # Enable the Develop menu and the Web Inspector in Safari [CMB]
+defaults write com.apple.Safari.SandboxBroker ShowDevelopMenu -bool true
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
 defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
