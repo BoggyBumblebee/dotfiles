@@ -63,7 +63,7 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 
 # Set background to dark-grey color[CMB - Updated, but will need to be set to London Evening once setup is complete]
-osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/System/Library/Desktop Pictures/Hello Metallic Blue.heic"'
+# osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/System/Library/Desktop Pictures/Hello Metallic Blue.heic"'
 
 # Use F1, F2, etc. as standard function keys [CMB]
 defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
