@@ -82,8 +82,11 @@ defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
 defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 2
 defaults write NSGlobalDomain ContextMenuGesture -int 1
 
-# Mouse map second button to right-click (requires restart!) [CMB]
+# Mouse: map second button to right-click (requires restart!) [CMB]
 defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonMode TwoButton
+
+# Mouse: set scaling to be quite fats (5 is fastest) [CMB]
+defaults write -g com.apple.mouse.scaling 2
 
 # Disable press-and-hold for keys in favor of key repeat [CMB]
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
