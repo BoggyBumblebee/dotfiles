@@ -110,7 +110,7 @@ defaults write com.apple.screencapture disable-shadow -bool true
 # Set ~ as the default location for new Finder windows [CMB - updated from ~/Desktop to ~]
 # For other paths, use `PfLo` and `file:///full/path/here/`
 defaults write com.apple.finder NewWindowTarget -string "PfDe"
-defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
+defaults write com.apple.finder NewWindowTargetPath -string "~/"
 
 # Show icons for hard drives, servers, and removable media on the desktop [CMB]
 defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
@@ -125,13 +125,13 @@ defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # Finder: hide tags in sidebar [CMB]
-defaults write com.apple.finder ShowRecentTags -bool false                   # Hide tags in sidebar.
+defaults write com.apple.finder ShowRecentTags -bool false
 
-# Finder: Alow quitting finder via ⌘ + Q [CMB]
-defaults write com.apple.finder QuitMenuItem -bool true                      # Allow quitting finder via ⌘ + Q.
+# Finder: allow quitting finder via ⌘ + Q [CMB]
+defaults write com.apple.finder QuitMenuItem -bool true
 
-# Finder: Alow greater sidebar width [CMB]
-defaults write com.apple.finder SidebarWidth -int 175                        # Greater sidebar width.
+# Finder: allow greater sidebar width [CMB]
+defaults write com.apple.finder SidebarWidth -int 150
 
 # Finder: show status bar [CMB]
 defaults write com.apple.finder ShowStatusBar -bool true
@@ -184,12 +184,12 @@ chflags nohidden ~/Library
 # Set the auto-hide of the Dock 
 defaults write com.apple.dock autohide -bool true  
 
-# Set the icon size of Dock items [CMB - Updated from 30 to 64]
-defaults write com.apple.dock tilesize -int 48
+# Set the icon size of Dock items [CMB - Updated from 30 to 32]
+defaults write com.apple.dock tilesize -int 32
 
 # Set the large icon size (expansion) of Dock Items [CMB]
 defaults write com.apple.dock magnification -boolean true
-defaults write com.apple.dock largesize -int 98
+defaults write com.apple.dock largesize -int 64
 
 # Speed up Mission Control animations [CMB]
 defaults write com.apple.dock expose-animation-duration -float 0.15
