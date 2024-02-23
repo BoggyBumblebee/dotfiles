@@ -172,7 +172,8 @@ chflags nohidden ~/Library
 # Set the icon size of Dock items [CMB - Updated from 30 to 64]
 defaults write com.apple.dock tilesize -int 64
 
-# TODO Set the expansion, expansion size of Dock Items [CMB]
+# Set the large icon size (expansion) of Dock Items [CMB]
+defaults write com.apple.dock largesize -int 128
 
 # Speed up Mission Control animations [CMB]
 defaults write com.apple.dock expose-animation-duration -float 0.15
@@ -220,7 +221,9 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 # Add a context menu item for showing the Web Inspector in web views [CMB]
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
-# TODO Show Tab and Status Bars [CMB]
+# Show Tab and Status Bars [CMB]
+defaults write com.apple.Safari AlwaysShowTabBar -boolean true
+defaults write com.apple.Safari ShowStatusBar -boolean true
 
 ###############################################################################
 # Mail                                                                        #
