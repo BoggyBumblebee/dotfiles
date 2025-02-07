@@ -81,26 +81,8 @@ osascript -e 'tell application "System Preferences" to quit'
 # System Settings >> Appearance                                               #
 ###############################################################################
 
-# Appearance [Dark]
-defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
-
-# Accent colour [Multicolor]
-defaults delete NSGlobalDomain AppleAquaColorVariant
-
-# Highlight colour [Multicolor]
-defaults delete NSGlobalDomain AppleHighlightColor
-
-# Sidebar icon size [Small]
-defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
-
 # Allow wallpaper tinting in windows [On]
-defaults write NSGlobalDomain AppleReduceDesktopTinting -bool 1
-
-# Show scroll bars [Automatically based on mouse or trackpad]
-defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
-
-# Click in the scroll bar to [Jump to next page]
-defaults write NSGlobalDomain AppleScrollerPagingBehavior -bool 0
+defaults write NSGlobalDomain AppleReduceDesktopTinting -bool true
 
 ###############################################################################
 # General UI/UX                                                               #
