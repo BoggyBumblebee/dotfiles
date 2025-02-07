@@ -213,9 +213,6 @@ defaults write "com.apple.dock" "show-process-indicators" '1'
 # Dock >> Show suggested and recent apps in Dock [Off]
 defaults write "com.apple.dock" "show-recents" '0'
 
-# Widgets >> Default web browser [Safari.app]
-defaults write "Not in defaults" " ''
-
 # Windows >> Prefer tabs when opening document [Always]
 defaults write "Apple Global Domain" "AppleWindowTabbingMode" 'always'
 
