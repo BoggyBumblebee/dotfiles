@@ -110,7 +110,8 @@ defaults write NSGlobalDomain AppleScrollerPagingBehavior -bool false
 defaults write com.apple.controlcenter "NSStatusItem Visible WiFi" -int 1
 
 # Control Centre Modules >> Bluetooth [Show in Menu Bar]
-defaults write com.apple.controlcenter "NSStatusItem Visible Bluetooth" -bool true
+# defaults write com.apple.controlcenter "NSStatusItem Visible Bluetooth" -bool true
+defaults write "com.apple.controlcenter" "NSStatusItem Visible Bluetooth" '1'
 
 # Control Centre Modules >> AirDrop [Show in Menu Bar]
 defaults write com.apple.controlcenter "NSStatusItem Visible AirDrop" -bool true
