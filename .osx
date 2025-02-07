@@ -6,6 +6,11 @@
 # and sets up preferences and configurations for all the built-in services and
 # apps. Third-party app config should be done elsewhere.
 #
+# This version is based on the order of configuration as shown in the System
+# Settings / Preferences dialog, and then the individual applications.  This 
+# will change over time, but provides a consistent approach.  Those that do not 
+# fall into those two categories wil be represented at the end of this script.
+#
 # Options:
 #   --no-restart: Don't restart any apps or services after running the script.
 #
@@ -17,10 +22,15 @@
 #   4. Store new defaults in file: `defaults read > after`
 #   5. Diff the files: `diff before after`
 #
+# Alternatively, use the plistwatch application to watch for changes in the
+# macOS Defaults, the correct format.
+#
 # @see: http://secrets.blacktree.com/?showapp=com.apple.finder
 # @see: https://github.com/herrbischoff/awesome-macos-command-line
+# @see: https://github.com/catilac/plistwatch
 #
 # @author Jeff Geerling
+# @author Christopher Marsh-Bourdon
 
 # Warn that some commands will not be run if the script is not run as root.
 if [[ $EUID -ne 0 ]]; then
@@ -32,85 +42,492 @@ else
   while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 fi
 
-# Close open System Preferences panes, to prevent them from overriding settings. [CMB]
+# Close open System Settings panes, to prevent them from overriding settings.
 osascript -e 'tell application "System Preferences" to quit'
+
+###############################################################################
+# System Settings                                                             #
+###############################################################################
+
+# The following System Settings do not have, partially or in full, settings
+# that can be amended using `defaults write` command.  These are omitted from
+# the script accordingly...
+#
+# Apple Account
+# Family
+# Wi-Fi
+# Bluetooth
+# Network
+# Energy
+# General
+# Accessibility
+# Apple Intelligence & Siri
+# Displays
+# Screen Saver
+# Wallpaper
+# Focus
+# Screen Time
+# Lock Screen
+# Privacy & Security
+# Touch ID & Password
+# Users & Groups
+# Internet Accounts
+# Game Center
+# iCloud
+# Wallet & Apple Pay
+# Printer & Scanners
+
+###############################################################################
+# System Settings >> Appearance                                               #
+###############################################################################
+
+# Appearance [Dark]
+defaults write "Apple Global Domain" "AppleInterfaceStyle" 'Dark'
+
+# Accent colour [Multicolor]
+defaults delete "Apple Global Domain" "AppleAquaColorVariant"
+
+# Highlight colour [Multicolor]
+defaults delete "Apple Global Domain" "AppleHighlightColor"
+
+# Sidebar icon size [Small]
+defaults write "Apple Global Domain" "NSTableViewDefaultSizeMode" '1'
+
+# Allow wallpaper tinting in windows [On]
+defaults write "Apple Global Domain" "AppleReduceDesktopTinting" '1'
+
+# Show scroll bars [Automatically based on mouse or trackpad]
+defaults write "Apple Global Domain" "AppleShowScrollBars" 'Automatic'
+
+# Click in the scroll bar to [Jump to next page]
+defaults write "Apple Global Domain" "AppleScrollerPagingBehavior" '0'
+
+###############################################################################
+# System Settings >> Control Center                                           #
+###############################################################################
+
+# Control Centre Modules >> Wi-Fi [Show in Menu Bar]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible WiFi" '1'
+
+# Control Centre Modules >> Bluetooth [Show in Menu Bar]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible Bluetooth" '1'
+
+# Control Centre Modules >> AirDrop [Show in Menu Bar]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible AirDrop" '1'
+
+# Control Centre Modules >> Focus [Show When Active]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible Focus" '0'
+
+# Control Centre Modules >> Stage Manager [Don't Show in Menu Bar]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible StageManager" '0'
+
+# Control Centre Modules >> Screen Mirroring [Show When Active]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible ScreenMirroring" '0'
+
+# Control Centre Modules >> Display [Show When Active]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible Display" '0'
+
+# Control Centre Modules >> Sound [Show When Active]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible Sound" '0'
+
+# Control Centre Modules >> Now Playing [Show When Active]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible NowPlaying" '0'
+
+# Other Modules >> Accessibility Shortcuts >> Show in Menu Bar [Off]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible AccessibilityShortcuts" '0'
+
+# Other Modules >> Music Recognition >> Show in Menu Bar [Off]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible MusicRecognition" '0'
+
+# Other Modules >> Hearing >> Show in Menu Bar [Off]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible Hearing" '0'
+
+# Other Modules >> Fast User Switching >> Show in Menu Bar [Don't Show]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible UserSwitcher" '0'
+
+# Other Modules >> Energy Mode >> Show in Menu Bar [Don't Show in Menu Bar]
+defaults write "com.apple.controlcenter" "NSStatusItem Visible EnergyModeModule" '0'
+
+# Menu Bar Only >> Clock / Clock Options… / Date >> Show Date [Always]
+defaults write "com.apple.menuextra.clock" "ShowDate" '1'
+
+# Menu Bar Only >> Clock / Clock Options… / Date >> Show the day of the week [On]
+defaults write "com.apple.menuextra.clock" "ShowDayOfWeek" '1'
+
+# Menu Bar Only >> Clock / Clock Options… / Time >> Style [Digital]
+defaults write "com.apple.menuextra.clock" "IsAnalog" '0'
+
+# Menu Bar Only >> Clock / Clock Options… / Time >> Flash the time separators [Off]
+defaults write "com.apple.menuextra.clock" "FlashDateSeparators" '0'
+
+# Menu Bar Only >> Clock / Clock Options… / Time >> Display the time with seconds [Off]
+defaults write "com.apple.menuextra.clock" "ShowSeconds" '0'
+
+# Menu Bar Only >> Clock / Clock Options… / Time >> Announce the time [Off]
+# TODO Get complex statements
+
+# Menu Bar Only >> Spotlight [Show in Menu Bar]
+defaults write "com.apple.Spotlight" "NSStatusItem Visible Item-0" '1'
+
+# Menu Bar Only >> Siri [Show in Menu Bar]
+defaults write "com.apple.Siri" "StatusMenuVisible" '1'
+
+# Menu Bar Only >> Time Machine [Show in Menu Bar]
+# TODO Get complex statements
+
+# Menu Bar Only >> Automatically hide and show the menu bar [In Full Screen Only]
+defaults write "Apple Global Domain" "AppleMenuBarVisibleInFullscreen" '0'
+
+###############################################################################
+# System Settings >> Desktop & Dock                                           #
+###############################################################################
+
+# Dock >> Size [32]
+defaults write "com.apple.dock" "tilesize" '32'
+
+# Dock >> Magnification [On + 64]
+defaults write "com.apple.dock" "magnification" '1'
+defaults write "com.apple.dock" "largesize" '64'
+
+# Dock >> Position on screen [Bottom]
+defaults write "com.apple.dock" "orientation" 'bottom'
+
+# Dock >> Minimise windows using [Genie Effect]
+defaults write "com.apple.dock" "mineffect" 'genie'
+
+# Dock >> Double-click a window's title bars to [Zoom]
+defaults write "Apple Global Domain" "AppleActionOnDoubleClick" 'maximize'
+
+# Dock >> Minimise windows into application icon [On]
+defaults write "com.apple.dock" "minimize-to-application" '1'
+
+# Dock >> Automatically hide and show the Dock [On]
+defaults write "com.apple.dock" "autohide" '1'
+
+# Dock >> Animate opening applications [On]
+defaults write "com.apple.dock" "launchanim" '1'
+
+# Dock >> Show indicators for open applications [On]
+defaults write "com.apple.dock" "show-process-indicators" '1'
+
+# Dock >> Show suggested and recent apps in Dock [Off]
+defaults write "com.apple.dock" "show-recents" '0'
+
+# Widgets >> Default web browser [Safari.app]
+defaults write "Not in defaults" " ''
+
+# Windows >> Prefer tabs when opening document [Always]
+defaults write "Apple Global Domain" "AppleWindowTabbingMode" 'always'
+
+# Windows >> Ask to keep changes when closing documents [On]
+defaults write "Apple Global Domain" "NSCloseAlwaysConfirmsChanges" '1'
+
+# Windows >> Close windows when quitting an application [On]
+defaults write "Apple Global Domain" "NSQuitAlwaysKeepsWindows" '0'
+
+# Windows >> Drag windows to screen edge to tile [On]
+defaults write "com.apple.WindowManager" "EnableTilingByEdgeDrag" '1'
+
+# Windows >> Drag windows to menu bar to fill screen [On]
+defaults write "com.apple.WindowManager" "EnableTopTilingByEdgeDrag" '1'
+
+# Windows >> Hold opt/alt key while dragging windows to tile [Off]
+defaults write "com.apple.WindowManager" "EnableTilingOptionAccelerator" '0'
+
+# Windows >> Tiled windows have margin [Off]
+defaults write "com.apple.WindowManager" "EnableTiledWindowMargins" '0'
+
+# Mission Control >> Automatically rearrange Spaces based on most recent use [On]
+defaults write "com.apple.dock" "mru-spaces" '1'
+
+# Mission Control >> When switching to an application, switch to a Space with open windows for the application [On]
+defaults write "Apple Global Domain" "AppleSpacesSwitchOnActivate" '1'
+
+# Mission Control >> Group windows by application [On]
+defaults write "com.apple.dock" "expose-group-apps" '1'
+
+# Mission Control >> Displays have separate Spaces [On]
+defaults write "com.apple.spaces" "spans-displays" '0'
+
+# Mission Control >> Drag windows to top of screen to enter Mission Control [On]
+defaults write "com.apple.dock" "enterMissionControlByTopWindowDrag" '1'
+
+# Shortcuts >> Keyboard & Mouse Shortcuts >> Mission Control - Keyboard Shortcut [Ctrl + ↑]
+# Shortcuts >> Keyboard & Mouse Shortcuts >> Mission Control - Mouse Shortcut [-]
+# Shortcuts >> Keyboard & Mouse Shortcuts >> Applications windows - Keyboard Shortcut [Ctrl + ↓]
+# Shortcuts >> Keyboard & Mouse Shortcuts >> Applications windows - Mouse Shortcut [-]
+# Shortcuts >> Keyboard & Mouse Shortcuts >> Show Desktop - Keyboard Shortcut [F11]
+# Shortcuts >> Keyboard & Mouse Shortcuts >> Show Desktop - Mouse Shortcut [-]
+defaults write "com.apple.symbolichotkeys" "AppleSymbolicHotKeys" '{32={enabled=1;value={parameters=(65535,126,262144,);type=standard;};};33={enabled=1;value={parameters=(65535,125,262144,);type=standard;};};34={enabled=1;value={parameters=(65535,125,393216,);type=standard;};};36={enabled=1;value={parameters=(65535,103,0,);type=standard;};};37={enabled=1;value={parameters=(65535,103,131072,);type=standard;};};38={enabled=0;};39={enabled=0;};40={enabled=0;};41={enabled=0;};42={enabled=0;};43={enabled=0;};44={enabled=0;};45={enabled=0;};46={enabled=0;};48={enabled=0;};49={enabled=0;};}'
+
+
+# Hot Corners >> Hot Corners
+
+# Possible values:
+#  0: no-op
+#  2: Mission Control
+#  3: Show application windows
+#  4: Desktop
+#  5: Start screen saver
+#  6: Disable screen saver
+#  7: Dashboard
+# 10: Put display to sleep
+# 11: Launchpad
+# 12: Notification Center
+
+# Hot Corners >> Hot Corners >> Top Left [-]
+defaults write "com.apple.dock" "wvous-tl-corner" '0'
+defaults write "com.apple.dock" "wvous-tl-modifier" '0'
+
+# Hot Corners >> Hot Corners >> Top Right [-]
+defaults write "com.apple.dock" "wvous-tr-corner" '0'
+defaults write "com.apple.dock" "wvous-tr-modifier" '0'
+
+# Hot Corners >> Hot Corners >> Bottom Left [-]
+defaults write "com.apple.dock" "wvous-bl-corner" '0'
+defaults write "com.apple.dock" "wvous-bl-modifier" '0'
+
+# Hot Corners… >> Hot Corners >> Bottom Right [Launchpad]
+defaults write "com.apple.dock" "wvous-br-corner" '11'
+defaults write "com.apple.dock" "wvous-br-modifier" '0'
+
+###############################################################################
+# System Settings >> Spotlight                                                #
+###############################################################################
+
+# Applications [Checked]
+# Calculator [Checked]
+# Contacts [Checked]
+# Conversion [Checked]
+# Definition [Checked]
+# Developer [Checked]
+# Documents [Checked]
+# Events & Reminders [Checked]
+# Folders [Checked]
+# Fonts [Checked]
+# Images [Checked]
+# Mail & Messages [Checked]
+# Movies [Checked]
+# Music [Checked]
+# Other [Checked]
+# Presentations [Checked]
+# Siri Suggestions [Checked]
+# System Settings [Checked]
+# Tips [Checked]
+# Websites [Checked]
+defaults write "com.apple.Spotlight" "orderedItems" '({enabled=1;name=APPLICATIONS;},{enabled=1;name="MENU_EXPRESSION";},{enabled=1;name=CONTACT;},{enabled=1;name="MENU_CONVERSION";},{enabled=1;name="MENU_DEFINITION";},{enabled=1;name=SOURCE;},{enabled=1;name=DOCUMENTS;},{enabled=1;name="EVENT_TODO";},{enabled=1;name=DIRECTORIES;},{enabled=1;name=FONTS;},{enabled=1;name=IMAGES;},{enabled=1;name=MESSAGES;},{enabled=1;name=MOVIES;},{enabled=1;name=MUSIC;},{enabled=1;name="MENU_OTHER";},{enabled=1;name=PDF;},{enabled=1;name=PRESENTATIONS;},{enabled=1;name="MENU_SPOTLIGHT_SUGGESTIONS";},{enabled=1;name=SPREADSHEETS;},{enabled=1;name="SYSTEM_PREFS";},{enabled=1;name=TIPS;},{enabled=1;name=BOOKMARKS;},)'
+
+###############################################################################
+# System Settings >> Notifications                                            #
+###############################################################################
+
+# Notification Centre >> Show previews [When Unlocked]
+defaults write "com.apple.ncprefs" "content_visibility" '2'
+
+###############################################################################
+# System Settings >> Sound                                                    #
+###############################################################################
+
+# Sound Effects >> Alert sound [Boop]
+defaults write "Apple Global Domain" "com.apple.sound.beep.sound" '"/System/Library/Sounds/Blow.aiff"'
+
+# Sound Effects >> Alert volume [{TBC}]
+defaults write "Apple Global Domain" "com.apple.sound.beep.volume" '0.6'
+
+# Sound Effects >> Play user interface sound effects [On]
+defaults write "Apple Global Domain" "com.apple.sound.uiaudio.enabled" '1'
+
+# Sound Effects >> Play feedback when volume is chnaged [Off]
+defaults write "Apple Global Domain" "com.apple.sound.beep.feedback" '0'
+
+###############################################################################
+# System Settings >> Keyboard                                                 #
+###############################################################################
+
+# Key repeat rate [2]
+defaults write "Apple Global Domain" "KeyRepeat" '2'
+
+# Delay until repeat [20]
+defaults write "Apple Global Domain" "InitialKeyRepeat" '20'
+
+# Press 'world' key to  [Do nothing]
+defaults write "com.apple.HIToolbox" "AppleFnUsageType" '0'
+
+# Keyboard navigation [Off]
+defaults write "Apple Global Domain" "AppleKeyboardUIMode" '0'
+
+# Keyboard Shortcuts >> Launchpad & Dock >> Show Launchpad [Checked / F4]
+
+# Keyboard Shortcuts >> Function Keys >> Use F1, F2 etc. keys as standard function keys [On]
+defaults write "Apple Global Domain" "com.apple.keyboard.fnState" '1'
+
+# Dictation >> Use dictation… [Off]
+defaults write "com.apple.assistant.support" "Dictation Enabled" '0'
+
+###############################################################################
+# System Settings >> Mouse                                                    #
+###############################################################################
+
+# Point & Click >> Tracking speed [2]
+defaults write "Apple Global Domain" "com.apple.mouse.scaling" '2'
+
+# Point & Click >> Natural scrolling [On]
+defaults write "Apple Global Domain" "com.apple.swipescrolldirection" '1'
+
+# Point & Click >> Secondary click [Click Right Side]
+defaults write "com.apple.driver.AppleBluetoothMultitouch" "MouseButtonMode" 'TwoButton'
+defaults write "com.apple.driver.AppleBluetoothMultitouch.mouse" "MouseButtonMode" 'TwoButton'
+
+# Point & Click >> Double-Click Speed [0.5]
+defaults write "Apple Global Domain" "com.apple.mouse.doubleClickThreshold" '"0.5"'
+
+# Point & Click >> Scrolling Speed [0.3125]
+defaults write "Apple Global Domain" "com.apple.scrollwheel.scaling" '"0.3125"'
+
+# Advanced >> Pointer acceleration [On]
+defaults write "Apple Global Domain" "com.apple.mouse.linear" '0'
+
+###############################################################################
+# System Settings >> Trackpad                                                 #
+###############################################################################
+
+# Point & Click >> Tracking speed [0.6875]
+defaults write "Apple Global Domain" "com.apple.trackpad.scaling" '"0.6875"'
+
+# Point & Click >> Click [Light]
+defaults write "com.apple.AppleMultitouchTrackpad" "FirstClickThreshold" '0'
+# OLD VERSION: defaults write com.apple.AppleMultitouchTrackpad ActuationStrength '0'
+
+# Point & Click >> Force Click and haptic feedback [On]
+# Point & Click >> Look up & data detectors [On]
+defaults write "com.apple.driver.AppleBluetoothMultitouch.trackpad" "TrackpadThreeFingerTapGesture" '0'
+defaults write "com.apple.AppleMultitouchTrackpad" "TrackpadThreeFingerTapGesture" '0'
+defaults write "com.apple.AppleMultitouchTrackpad" "ForceSuppressed" '0'
+defaults write "com.apple.AppleMultitouchTrackpad" "ActuateDetents" '1'
+defaults write "Apple Global Domain" "com.apple.trackpad.forceClick" '1'
+
+# Point & Click >> Secondary click [Click in Bottom-Right Corner]
+defaults write "com.apple.AppleMultitouchTrackpad" "TrackpadCornerSecondaryClick" '2'
+defaults write "com.apple.AppleMultitouchTrackpad" "TrackpadRightClick" '0'
+defaults write "com.apple.driver.AppleBluetoothMultitouch.trackpad" "TrackpadRightClick" '0'
+defaults write "com.apple.driver.AppleBluetoothMultitouch.trackpad" "TrackpadCornerSecondaryClick" '2'
+
+# Point & Click >> Tap to click [On]
+defaults write "com.apple.driver.AppleBluetoothMultitouch.trackpad" "Clicking" '1'
+defaults write "com.apple.AppleMultitouchTrackpad" "Clicking" '1'
+
+# Scroll & Zoom >> Natural scrolling [On]
+defaults write "Apple Global Domain" "com.apple.swipescrolldirection" '1'
+
+# Scroll & Zoom >> Zoom in or out [On]
+defaults write "com.apple.AppleMultitouchTrackpad" "TrackpadPinch" '1'
+
+# Scroll & Zoom >> Smart zoom [On]
+defaults write "com.apple.AppleMultitouchTrackpad" "TrackpadTwoFingerDoubleTapGesture" '1'
+defaults write "com.apple.driver.AppleBluetoothMultitouch.trackpad" "TrackpadTwoFingerDoubleTapGesture" '1'
+
+# Scroll & Zoom >> Rotate [On]
+defaults write "com.apple.AppleMultitouchTrackpad" "TrackpadRotate" '1'
+defaults write "com.apple.driver.AppleBluetoothMultitouch.trackpad" "TrackpadRotate" '1'
+
+# Scroll & Zoom >> Rotate [On]
+defaults write "Apple Global Domain" "AppleEnableSwipeNavigateWithScrolls" '0'
+
+# More Gestures >> Swipe between pages [Scroll Left or Right with Two Fingers]
+defaults write "Apple Global Domain" "AppleEnableSwipeNavigateWithScrolls" '1'
+
+# More Gestures >> Swipe between full-screen applications [Swipe Left or Right Three Fingers]
+defaults write "com.apple.driver.AppleBluetoothMultitouch.trackpad" "TrackpadFourFingerHorizSwipeGesture" '2'
+defaults write "com.apple.driver.AppleBluetoothMultitouch.trackpad" "TrackpadThreeFingerHorizSwipeGesture" '2'
+defaults write "com.apple.AppleMultitouchTrackpad" "TrackpadThreeFingerHorizSwipeGesture" '2'
+defaults write "com.apple.AppleMultitouchTrackpad" "TrackpadFourFingerHorizSwipeGesture" '2'
+
+# More Gestures >> Notification Centre [On]
+defaults write "com.apple.driver.AppleBluetoothMultitouch.trackpad" "TrackpadTwoFingerFromRightEdgeSwipeGesture" '3'
+defaults write "com.apple.AppleMultitouchTrackpad" "TrackpadTwoFingerFromRightEdgeSwipeGesture" '3'
+
+# More Gestures >> Mission Control [Swipe Up with Three Fingers]
+defaults write "com.apple.AppleMultitouchTrackpad" "TrackpadFourFingerVertSwipeGesture" '2'
+defaults write "com.apple.AppleMultitouchTrackpad" "TrackpadThreeFingerVertSwipeGesture" '2'
+defaults write "com.apple.dock" "showMissionControlGestureEnabled" '1'
+defaults write "com.apple.driver.AppleBluetoothMultitouch.trackpad" "TrackpadFourFingerVertSwipeGesture" '2'
+defaults write "com.apple.driver.AppleBluetoothMultitouch.trackpad" "TrackpadThreeFingerVertSwipeGesture" '2'
+
+# More Gestures >> App Expose [Off]
+defaults write "com.apple.dock" "showAppExposeGestureEnabled" '0'
+
+# More Gestures >> Launchpad [On]
+defaults write "com.apple.dock" "showLaunchpadGestureEnabled" '1'
+
+# More Gestures >> Show Desktop [On]
+defaults write "com.apple.dock" "showDesktopGestureEnabled" '1'
 
 ###############################################################################
 # General UI/UX                                                               #
 ###############################################################################
 
-# Expand save panel by default [CMB]
-defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+# Expand save panel by default
+defaults write "Apple Global Domain" NSNavPanelExpandedStateForSaveMode '1'
 
-# Expand print panel by default [CMB]
-defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
+# Expand print panel by default
+defaults write "Apple Global Domain" PMPrintingExpandedStateForPrint '1'
 
-# Save to disk (not to iCloud) by default [CMB]
-defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+# Save to disk (not to iCloud) by default
+defaults write "Apple Global Domain" NSDocumentSaveNewDocumentsToCloud '0'
 
-# Automatically quit printer app once the print jobs complete [CMB]
-defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
+# Automatically quit printer app once the print jobs complete
+defaults write com.apple.print.PrintingPrefs "Quit When Finished" '1'
 
-# Restart automatically if the computer freezes [CMB]
+# Restart automatically if the computer freezes
 if [[ "$RUN_AS_ROOT" = true ]]; then
   systemsetup -setrestartfreeze on
 fi
 
-# Disable smart quotes as they’re annoying when typing code [CMB]
-defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+# Disable auto-correct
+defaults write "Apple Global Domain" NSAutomaticSpellingCorrectionEnabled '0'
 
-# Disable smart dashes as they’re annoying when typing code [CMB]
-defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+# Disable smart quotes as they’re annoying when typing code
+defaults write "Apple Global Domain" NSAutomaticQuoteSubstitutionEnabled '0'
 
-# Set background to dark-grey color[CMB - Updated, but will need to be set to London Evening once setup is complete]
-# osascript -e 'tell application "Finder" to set desktop picture to POSIX file "/System/Library/Desktop Pictures/Hello Metallic Blue.heic"'
-
-# Use F1, F2, etc. as standard function keys [CMB]
-defaults write NSGlobalDomain com.apple.keyboard.fnState -bool true
+# Disable smart dashes as they’re annoying when typing code
+defaults write "Apple Global Domain" NSAutomaticDashSubstitutionEnabled '0'
 
 ###############################################################################
-# Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
+# Applications                                                                #
 ###############################################################################
 
-# Trackpad: Haptic feedback (light, silent clicking) [CMB]
-defaults write com.apple.AppleMultitouchTrackpad FirstClickThreshold -int 0
-defaults write com.apple.AppleMultitouchTrackpad ActuationStrength -int 0
-
-# Trackpad: map bottom right corner to right-click (requires restart!) [CMB]
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadRightClick -bool true
-defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
-defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 2
-defaults write NSGlobalDomain ContextMenuGesture -int 1
-
-# Mouse: map second button to right-click (requires restart!) [CMB]
-defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonMode TwoButton
-
-# Mouse: set scaling to be quite fats (5 is fastest) [CMB]
-defaults write -g com.apple.mouse.scaling 2
-
-# Disable press-and-hold for keys in favor of key repeat [CMB]
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
-
-# Set a blazingly fast keyboard repeat rate, and make it happen more quickly. [CMB]
-# (The KeyRepeat option requires logging out and back in to take effect.)
-defaults write NSGlobalDomain InitialKeyRepeat -int 20
-defaults write NSGlobalDomain KeyRepeat -int 1
-
-# Disable auto-correct [CMB]
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
-
 ###############################################################################
-# Screen                                                                      #
+# Activity Monitor                                                            #
 ###############################################################################
 
-# Save screenshots to Downloads folder. [CMB]
-defaults write com.apple.screencapture location -string "${HOME}/Downloads"
+# Show the main window when launching Activity Monitor
+defaults write com.apple.ActivityMonitor OpenMainWindow '1'
 
-# Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF) [CMB]
-defaults write com.apple.screencapture type -string "png"
+# Show all processes in Activity Monitor
+defaults write com.apple.ActivityMonitor ShowCategory '0'
 
-# Disable shadow in screenshots [CMB]
-defaults write com.apple.screencapture disable-shadow -bool true
+###############################################################################
+# App Store                                                                   #
+###############################################################################
+
+# Disable in-app rating requests from apps downloaded from the App Store.
+defaults write com.apple.appstore InAppReviewEnabled '0'
+
+###############################################################################
+# Dock, Dashboard, and hot corners                                            #
+###############################################################################
+
+# Set the large icon size (expansion) of Dock Items
+defaults write com.apple.dock magnification '1'
+
+# Speed up Mission Control animations
+defaults write com.apple.dock expose-animation-duration -float 0.15
+
+# Make Dock icons of hidden applications translucent
+defaults write com.apple.dock showhidden '1'
+
+# Enable the 'reduce transparency' option. Save GPU cycles. [CMB - Updated from true to false]
+defaults write com.apple.universalaccess reduceTransparency '0'
 
 ###############################################################################
 # Finder                                                                      #
@@ -122,56 +539,53 @@ defaults write com.apple.screencapture disable-shadow -bool true
 defaults write com.apple.finder NewWindowTarget -string "PfHm"
 # defaults write com.apple.finder NewWindowTargetPath -string "/Users/cmb/"
 
-# Finder: show icons for hard drives, servers, and removable media on the desktop [CMB]
-defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
-defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
-defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
-defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+# Finder: show icons for hard drives, servers, and removable media on the desktop
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop '1'
+defaults write com.apple.finder ShowHardDrivesOnDesktop '1'
+defaults write com.apple.finder ShowMountedServersOnDesktop '1'
+defaults write com.apple.finder ShowRemovableMediaOnDesktop '1'
 
-# Finder: set sidebar icon size to small [CMB]
-defaults write NSGlobalDomain "NSTableViewDefaultSizeMode" -int 1
+# Finder: show hidden files by default
+# defaults write com.apple.finder AppleShowAllFiles '1'
 
-# Finder: show hidden files by default [CMB]
-# defaults write com.apple.finder AppleShowAllFiles -bool true
+# Finder: show all filename extensions
+defaults write "Apple Global Domain" AppleShowAllExtensions '1'
 
-# Finder: show all filename extensions [CMB]
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+# Finder: hide tags in sidebar
+defaults write com.apple.finder ShowRecentTags '0'
 
-# Finder: hide tags in sidebar [CMB]
-defaults write com.apple.finder ShowRecentTags -bool false
+# Finder: allow quitting finder via ⌘ + Q
+defaults write com.apple.finder QuitMenuItem '1'
 
-# Finder: allow quitting finder via ⌘ + Q [CMB]
-defaults write com.apple.finder QuitMenuItem -bool true
-
-# Finder: allow greater sidebar width [CMB]
+# Finder: allow greater sidebar width
 defaults write com.apple.finder SidebarWidth -int 150
 
-# Finder: show status bar [CMB]
-defaults write com.apple.finder ShowStatusBar -bool true
+# Finder: show status bar
+defaults write com.apple.finder ShowStatusBar '1'
 
-# Finder: show path bar [CMB]
-defaults write com.apple.finder ShowPathbar -bool true
+# Finder: show path bar
+defaults write com.apple.finder ShowPathbar '1'
 
-# Finder: allow text selection in Quick Look [CMB]
-defaults write com.apple.finder QLEnableTextSelection -bool true
+# Finder: allow text selection in Quick Look
+defaults write com.apple.finder QLEnableTextSelection '1'
 
-# Finder: display full POSIX path as Finder window title [CMB]
-defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+# Finder: display full POSIX path as Finder window title
+defaults write com.apple.finder _FXShowPosixPathInTitle '1'
 
-# Finer: when performing a search, search the This Mac by default [CMB - updated from Current Folder to This Mac]
+# Finder: when performing a search, search the This Mac by default [CMB - updated from Current Folder to This Mac]
 # defaults write com.apple.finder FXDefaultSearchScope -string "SCev"
 
-# Finder: disable the warning when changing a file extension [CMB]
-defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+# Finder: disable the warning when changing a file extension
+defaults write com.apple.finder FXEnableExtensionChangeWarning '0'
 
-# Finder: enable spring loading for directories [CMB]
-defaults write NSGlobalDomain com.apple.springing.enabled -bool true
+# Finder: enable spring loading for directories
+defaults write "Apple Global Domain" com.apple.springing.enabled '1'
 
-# Finder: remove the spring loading delay for directories [CMB]
-defaults write NSGlobalDomain com.apple.springing.delay -float 0.1
+# Finder: remove the spring loading delay for directories
+defaults write "Apple Global Domain" com.apple.springing.delay -float 0.1
 
-# Finder: avoid creating .DS_Store files on network volumes [CMB]
-defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+# Finder: avoid creating .DS_Store files on network volumes
+defaults write com.apple.desktopservices DSDontWriteNetworkStores '1'
 
 # Enable arrange by name for icons on the desktop and in other icon views [CMB - Updated from grid to name]
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy name" ~/Library/Preferences/com.apple.finder.plist
@@ -187,126 +601,58 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # Four-letter codes for the other view modes: `icnv`, `Nlsv`, `clmv`, `Flwv`
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
-# Finder: show the ~/Library folder [CMB]
+# Finder: show the ~/Library folder
 chflags nohidden ~/Library
 
-# Finder: empty bin items after 30 days [CMB]
-defaults write com.apple.finder "FXRemoveOldTrashItems" -bool true
-
-###############################################################################
-# Dock, Dashboard, and hot corners                                            #
-###############################################################################
-
-# Set the auto-hide of the Dock [CMB]
-defaults write com.apple.dock autohide -bool true  
-
-# Prevent recent applications shwoign in the Dock [CMB]
-defaults write com.apple.dock show-recents -bool false
-
-# Set the icon size of Dock items [CMB - Updated from 30 to 32]
-defaults write com.apple.dock tilesize -int 32
-
-# Set the large icon size (expansion) of Dock Items [CMB]
-defaults write com.apple.dock magnification -boolean true
-defaults write com.apple.dock largesize -int 64
-
-# Speed up Mission Control animations [CMB]
-defaults write com.apple.dock expose-animation-duration -float 0.15
-
-# Make Dock icons of hidden applications translucent [CMB]
-defaults write com.apple.dock showhidden -bool true
-
-# Enable the 'reduce transparency' option. Save GPU cycles. [CMB - Updated from true to false]
-defaults write com.apple.universalaccess reduceTransparency -bool false
-
-# Hot corners
-# Possible values:
-#  0: no-op
-#  2: Mission Control
-#  3: Show application windows
-#  4: Desktop
-#  5: Start screen saver
-#  6: Disable screen saver
-#  7: Dashboard
-# 10: Put display to sleep
-# 11: Launchpad
-# 12: Notification Center
-
-# Bottom right screen corner → Launchpad [CMB - Updated from Mission Control to Launchpad]
-defaults write com.apple.dock wvous-br-corner -int 11
-defaults write com.apple.dock wvous-br-modifier -int 0
-
-# Top right screen corner → Put display to sleep [CMB]
-defaults write com.apple.dock wvous-tr-corner -int 10
-defaults write com.apple.dock wvous-tr-modifier -int 0
-
-# Bottom left screen corner → Desktop [CMB]
-defaults write com.apple.dock wvous-bl-corner -int 4
-defaults write com.apple.dock wvous-bl-modifier -int 0
-
-###############################################################################
-# Safari & WebKit                                                             #
-###############################################################################
-
-# Enable the Develop menu and the Web Inspector in Safari [CMB]
-defaults write com.apple.Safari.SandboxBroker ShowDevelopMenu -bool true
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
-
-# Add a context menu item for showing the Web Inspector in web views [CMB]
-defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
-
-# Show Tab and Status Bars [CMB]
-defaults write com.apple.Safari AlwaysShowTabBar -boolean true
-defaults write com.apple.Safari ShowStatusBar -boolean true
+# Finder: empty bin items after 30 days
+defaults write com.apple.finder "FXRemoveOldTrashItems" '1'
 
 ###############################################################################
 # Mail                                                                        #
 ###############################################################################
 
-# Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app [CMB]
-defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
-
-###############################################################################
-# Spotlight                                                                   #
-###############################################################################
-
-#if [[ "$RUN_AS_ROOT" = true ]]; then
-#  # Disable Spotlight indexing for any volume that gets mounted and has not yet been indexed before. [CMB]
-#  # Use `sudo mdutil -i off "/Volumes/foo"` to stop indexing any volume.
-#  sudo defaults write /.Spotlight-V100/VolumeConfiguration Exclusions -array "/Volumes"
-#
-#  # Restart spotlight
-#  killall mds > /dev/null 2>&1
-#fi
-
-###############################################################################
-# Activity Monitor                                                            #
-###############################################################################
-
-# Show the main window when launching Activity Monitor [CMB]
-defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
-
-# Show all processes in Activity Monitor [CMB]
-defaults write com.apple.ActivityMonitor ShowCategory -int 0
+# Copy email addresses as `foo@example.com` instead of `Foo Bar <foo@example.com>` in Mail.app
+defaults write com.apple.mail AddressesIncludeNameOnPasteboard '0'
 
 ###############################################################################
 # Messages                                                                    #
 ###############################################################################
 
-# Disable smart quotes as it’s annoying for messages that contain code [CMB]
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" -bool false
+# Disable smart quotes as it’s annoying for messages that contain code
+defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticQuoteSubstitutionEnabled" '0'
 
-# Disable continuous spell checking [CMB - Updated from false to true]
-defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" -bool true
+# Enable continuous spell checking
+defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "continuousSpellCheckingEnabled" '1'
 
 ###############################################################################
-# App Store                                                                   #
+# Safari & WebKit                                                             #
 ###############################################################################
 
-# Disable in-app rating requests from apps downloaded from the App Store. [CMB]
-defaults write com.apple.appstore InAppReviewEnabled -int 0
+# Enable the Develop menu and the Web Inspector in Safari
+defaults write com.apple.Safari.SandboxBroker ShowDevelopMenu '1'
+defaults write com.apple.Safari IncludeDevelopMenu '1'
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey '1'
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled '1'
+
+# Add a context menu item for showing the Web Inspector in web views
+defaults write "Apple Global Domain" WebKitDeveloperExtras '1'
+
+# Show Tab and Status Bars
+defaults write com.apple.Safari AlwaysShowTabBar '1'
+defaults write com.apple.Safari ShowStatusBar '1'
+
+###############################################################################
+# Screen Capture                                                              #
+###############################################################################
+
+# Save screenshots to Downloads folder.
+defaults write com.apple.screencapture location -string "${HOME}/Downloads"
+
+# Save screenshots in PNG format (other options: BMP, GIF, JPG, PDF, TIFF)
+defaults write com.apple.screencapture type -string "png"
+
+# Disable shadow in screenshots
+defaults write com.apple.screencapture disable-shadow '1'
 
 ###############################################################################
 # Kill/restart affected applications                                          #
