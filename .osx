@@ -6,6 +6,11 @@
 # and sets up preferences and configurations for all the built-in services and
 # apps. Third-party app config should be done elsewhere.
 #
+# This version is based on the order of configuration as shown in the System
+# Settings / Preferences dialog, and then the individual applications.  This 
+# will change over time, but provides a consistent approach.  Those that do not 
+# fall into those two categories wil be represented at the end of this script.
+#
 # Options:
 #   --no-restart: Don't restart any apps or services after running the script.
 #
@@ -17,10 +22,15 @@
 #   4. Store new defaults in file: `defaults read > after`
 #   5. Diff the files: `diff before after`
 #
+# Alternatively, use the plistwatch application to watch for changes in the
+# macOS Defaults, the correct format.
+#
 # @see: http://secrets.blacktree.com/?showapp=com.apple.finder
 # @see: https://github.com/herrbischoff/awesome-macos-command-line
+# @see: https://github.com/catilac/plistwatch
 #
 # @author Jeff Geerling
+# @author Christopher Marsh-Bourdon
 
 # Warn that some commands will not be run if the script is not run as root.
 if [[ $EUID -ne 0 ]]; then
@@ -34,6 +44,63 @@ fi
 
 # Close open System Preferences panes, to prevent them from overriding settings. [CMB]
 osascript -e 'tell application "System Preferences" to quit'
+
+###############################################################################
+# System Settings                                                             #
+###############################################################################
+
+# The following System Settings do not have, partially or in full, settings
+# that can be amended using `defaults write` command.  These are omitted from
+# the script accordingly...
+#
+# Apple Account
+# Family
+# Wi-Fi
+# Bluetooth
+# Network
+# Energy
+# General
+# Accessibility
+# Apple Intelligence & Siri
+# Displays
+# Screen Saver
+# Wallpaper
+# Focus
+# Screen Time
+# Lock Screen
+# Privacy & Security
+# Touch ID & Password
+# Users & Groups
+# Internet Accounts
+# Game Center
+# iCloud
+# Wallet & Apple Pay
+# Printer & Scanners
+
+###############################################################################
+# System Settings >> Appearance                                               #
+###############################################################################
+
+# Appearance [Dark]
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+
+# Accent colour [Multicolor]
+defaults delete NSGlobalDomain AppleAquaColorVariant
+
+# Highlight colour [Multicolor]
+defaults delete NSGlobalDomain AppleHighlightColor
+
+# Sidebar icon size [Small]
+defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
+
+# Allow wallpaper tinting in windows [On]
+defaults write NSGlobalDomain AppleReduceDesktopTinting -bool 1
+
+# Show scroll bars [Automatically based on mouse or trackpad]
+defaults write NSGlobalDomain AppleShowScrollBars -string "Automatic"
+
+# Click in the scroll bar to [Jump to next page]
+defaults write NSGlobalDomain AppleScrollerPagingBehavior -bool 0
 
 ###############################################################################
 # General UI/UX                                                               #
