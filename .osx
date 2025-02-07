@@ -107,46 +107,46 @@ defaults write NSGlobalDomain AppleScrollerPagingBehavior -bool false
 ###############################################################################
 
 # Control Centre Modules >> Wi-Fi [Show in Menu Bar]
-defaults write com.apple.controlcenter NSStatusItem Visible WiFi -int 1
+defaults write com.apple.controlcenter "NSStatusItem Visible WiFi" -int 1
 
 # Control Centre Modules >> Bluetooth [Show in Menu Bar]
-defaults write com.apple.controlcenter NSStatusItem Visible Bluetooth -int 1
+defaults write com.apple.controlcenter "NSStatusItem Visible Bluetooth" -int 1
 
 # Control Centre Modules >> AirDrop [Show in Menu Bar]
-defaults write com.apple.controlcenter NSStatusItem Visible AirDrop -int 1
+defaults write com.apple.controlcenter "NSStatusItem Visible AirDrop" -int 1
 
 # Control Centre Modules >> Focus [Show When Active]
-defaults write com.apple.controlcenter NSStatusItem Visible Focus -int 0
+defaults write com.apple.controlcenter "NSStatusItem Visible Focus" -int 0
 
 # Control Centre Modules >> Stage Manager [Don't Show in Menu Bar]
-defaults write com.apple.controlcenter NSStatusItem Visible StageManager -int 0
+defaults write com.apple.controlcenter "NSStatusItem Visible StageManager" -int 0
 
 # Control Centre Modules >> Screen Mirroring [Show When Active]
-defaults write com.apple.controlcenter NSStatusItem Visible ScreenMirroring -int 0
+defaults write com.apple.controlcenter "NSStatusItem Visible ScreenMirroring" -int 0
 
 # Control Centre Modules >> Display [Show When Active]
-defaults write com.apple.controlcenter NSStatusItem Visible Display -int 0
+defaults write com.apple.controlcenter "NSStatusItem Visible Display" -int 0
 
 # Control Centre Modules >> Sound [Show When Active]
-defaults write com.apple.controlcenter NSStatusItem Visible Sound -int 0
+defaults write com.apple.controlcenter "NSStatusItem Visible Sound" -int 0
 
 # Control Centre Modules >> Now Playing [Show When Active]
-defaults write com.apple.controlcenter NSStatusItem Visible NowPlaying -int 0
+defaults write com.apple.controlcenter "NSStatusItem Visible NowPlaying" -int 0
 
 # Other Modules >> Accessibility Shortcuts >> Show in Menu Bar [Off]
-defaults write com.apple.controlcenter NSStatusItem Visible AccessibilityShortcuts -int 0
+defaults write com.apple.controlcenter "NSStatusItem Visible AccessibilityShortcuts" -int 0
 
 # Other Modules >> Music Recognition >> Show in Menu Bar [Off]
-defaults write com.apple.controlcenter NSStatusItem Visible MusicRecognition -int 0
+defaults write com.apple.controlcenter "NSStatusItem Visible MusicRecognition" -int 0
 
 # Other Modules >> Hearing >> Show in Menu Bar [Off]
-defaults write com.apple.controlcenter NSStatusItem Visible Hearing -int 0
+defaults write com.apple.controlcenter "NSStatusItem Visible Hearing" -int 0
 
 # Other Modules >> Fast User Switching >> Show in Menu Bar [Don't Show]
-defaults write com.apple.controlcenter NSStatusItem Visible UserSwitcher -int 0
+defaults write com.apple.controlcenter "NSStatusItem Visible UserSwitcher" -int 0
 
 # Other Modules >> Energy Mode >> Show in Menu Bar [Don't Show in Menu Bar]
-defaults write com.apple.controlcenter NSStatusItem Visible EnergyModeModule -int 0
+defaults write com.apple.controlcenter "NSStatusItem Visible EnergyModeModule" -int 0
 
 ###############################################################################
 # General UI/UX                                                               #
