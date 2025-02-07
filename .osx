@@ -107,7 +107,7 @@ defaults write NSGlobalDomain AppleScrollerPagingBehavior -bool false
 ###############################################################################
 
 # Control Centre Modules >> Bluetooth [Show in Menu Bar]
-defaults write "com.apple.controlcenter" "NSStatusItem Visible Bluetooth" '1'
+defaults write com.apple.controlcenter "NSStatusItem Visible Bluetooth" -int 1
 
 ###############################################################################
 # General UI/UX                                                               #
