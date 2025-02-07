@@ -82,7 +82,7 @@ osascript -e 'tell application "System Preferences" to quit'
 ###############################################################################
 
 # Allow wallpaper tinting in windows [On]
-defaults write NSGlobalDomain AppleReduceDesktopTinting -bool true
+defaults write NSGlobalDomain AppleReduceDesktopTinting -bool false
 
 ###############################################################################
 # General UI/UX                                                               #
