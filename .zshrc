@@ -82,6 +82,13 @@ export HOMEBREW_AUTO_UPDATE_SECS=604800
 # Evaluate brew Aliases
 alias cuppa='brew upgrade && brew update && brew cleanup'
 
+# Evaluate Lightroom Archive Aliases
+alias larchive="rsync -ahP --exclude '/.bzvol' /Volumes/Lightroom/ '/Volumes/Lightroom Archive' 2> ~/rsync/logs/`date +%Y%m%d-%H%M%S`.archive.log"
+#alias lmedia="rsync -ahP --exclude '/.bzvol' /Volumes/Lightroom '/Volumes/Media' 2> ~/rsync/logs/`date +%Y%m%d-%H%M%S`.media.log"
+alias lbackup="rsync -ahP --exclude '/.bzvol' /Volumes/Lightroom '/Volumes/Backup' 2> ~/rsync/logs/`date +%Y%m%d-%H%M%S`.backup.log"
+
+alias abackup="rsync -aAXv /Volumes/Apple\Media –dry-run –-delete /Volumes/Backup/Apple\ Media/"
+
 # Evaluate "thefuck"
 eval $(thefuck --alias)
 
@@ -89,3 +96,12 @@ eval $(thefuck --alias)
 # SDKMAN!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# LLVM
+echo 'export PATH="/opt/homebrew/opt/llvm/bin:$PATH"' >> ~/.zshrc
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+
+# Brew Bundle
+export HOMEBREW_BUNDLE_FILE="~/workspace/github.com/boggybumblebee/dotfiles/Brewfile.$(hostname -s)"

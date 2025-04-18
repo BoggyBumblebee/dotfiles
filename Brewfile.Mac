@@ -1,0 +1,103 @@
+tap "homebrew/services"
+brew "aws-sam-cli"
+brew "awscli"
+brew "bash-completion"
+brew "docker"
+brew "dockutil"
+brew "git"
+brew "go"
+brew "golang-migrate"
+brew "goreleaser"
+brew "htop"
+brew "libdvdcss"
+brew "llvm"
+brew "lld"
+brew "make"
+brew "mas"
+brew "node"
+brew "nvm"
+brew "python@3.12"
+brew "smartmontools"
+brew "thefuck"
+brew "transmission-cli"
+brew "tree"
+brew "vim"
+brew "wget"
+brew "wifi-password"
+brew "zsh-history-substring-search"
+cask "adobe-acrobat-reader", args: { appdir: "/Applications" }
+cask "bbedit", args: { appdir: "/Applications" }
+cask "bettermouse"
+cask "firefox", args: { appdir: "/Applications" }
+cask "handbrake", args: { appdir: "/Applications" }
+cask "jdownloader"
+cask "jetbrains-toolbox", args: { appdir: "/Applications" }
+cask "launchpad-manager", args: { appdir: "/Applications" }
+cask "logitune"
+cask "microsoft-auto-update"
+cask "microsoft-office", args: { appdir: "/Applications" }
+cask "mosaic", args: { appdir: "/Applications" }
+cask "onyx"
+cask "paragon-ntfs", args: { appdir: "/Applications" }
+cask "postman", args: { appdir: "/Applications" }
+cask "sublime-text", args: { appdir: "/Applications" }
+cask "transmission"
+cask "transmit", args: { appdir: "/Applications" }
+cask "vagrant", args: { appdir: "/Applications" }
+cask "vlc"
+mas "Blackmagic Disk Speed Test", id: 425264550
+mas "Blackmagic RAW Speed Test", id: 1466185689
+mas "Bluetooth Explorer", id: 557468553
+mas "Countdown Timer Plus", id: 1150771803
+mas "Developer", id: 640199958
+mas "Disk Drill Media Recovery", id: 431224317
+mas "Display Menu", id: 549083868
+mas "djay Pro", id: 450527929
+mas "Elmedia Player", id: 937759555
+mas "FileZilla Pro", id: 1298486723
+mas "Final Cut Pro", id: 424389933
+mas "Folx GO+", id: 823528286
+mas "GoPro Player", id: 1460836908
+mas "Hacker Pad", id: 1470872890
+mas "Hex Fiend", id: 1342896380
+mas "Icon Slate", id: 439697913
+mas "Image2Icon", id: 992115977
+mas "IP Scanner Ultra", id: 404167677
+mas "iStatistica Pro", id: 1447778660
+mas "iTeleport", id: 489094439
+mas "Keynote", id: 409183694
+mas "Kindle", id: 302584613
+mas "KubeContext", id: 1438838068
+mas "Logic Pro", id: 634148309
+mas "Magic Battery", id: 1240063289
+mas "MenuBar Stats", id: 714196447
+mas "Mixed In Key 8", id: 954885838
+mas "Motion", id: 434290957
+mas "NordVPN", id: 905953485
+mas "Notable Utility", id: 6444840143
+mas "Numbers", id: 409203825
+mas "Nutshell", id: 955864065
+mas "OmniGraffle", id: 1142578753
+mas "Owly", id: 882812218
+mas "Pages", id: 409201541
+mas "PDF Toolkit", id: 405219581
+mas "Pommie", id: 963504129
+mas "PwGenerator", id: 402990477
+mas "reMarkable", id: 1276493162
+mas "Remote Desktop", id: 409907375
+mas "Scapple", id: 568020055
+mas "Scrivener", id: 1310686187
+mas "Slack", id: 803453959
+mas "SnippetsLab", id: 1006087419
+mas "Speedtest", id: 1153157709
+mas "SQLiteFlow", id: 1378587993
+mas "To MP3 Converter", id: 808583119
+mas "ToothFairy", id: 1191449274
+mas "UPS Power Monitor", id: 1500180529
+mas "vCardConverter for Excel", id: 994556965
+mas "VectorIconBox", id: 959485650
+mas "WhatsApp", id: 310633997
+mas "WiFi Explorer", id: 494803304
+mas "Windows App", id: 1295203466
+mas "World Clock Pro", id: 858446756
+mas "Xcode", id: 497799835
